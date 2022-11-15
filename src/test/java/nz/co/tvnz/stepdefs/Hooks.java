@@ -2,31 +2,19 @@ package nz.co.tvnz.stepdefs;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
-import nz.co.tvnz.pages.RegisterAndLoginPageObjects;
-import nz.co.tvnz.pages.NewsPageObjects;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+import nz.co.tvnz.configs.GlobalPropertyConfig;
+import nz.co.tvnz.libraries.DriverFactory;
 
-import java.time.Duration;
+public class Hooks extends DriverFactory {
 
-public class Hooks {
-    public static WebDriver driver;
-    public static NewsPageObjects newsPageObjects;
-    public static RegisterAndLoginPageObjects registerAndLoginPageObjects;
     @Before
     public void driverSetup(){
-        driver = ChromeDriverManager.chromedriver().create();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        driver.get("https://www.tvnz.co.nz");
-        driver.manage().window().maximize();
+        setUp(System.getProperty("browser")==null?GlobalPropertyConfig.getGlobalProperties().getProperty("1"):System.getProperty("browser"));
+        getDriver().get(GlobalPropertyConfig.getURL()==null?"https://www.tvnz.co.nz":GlobalPropertyConfig.getURL());
         System.out.println("Site loading successful....");
-        newsPageObjects = PageFactory.initElements(driver, NewsPageObjects.class);
-        registerAndLoginPageObjects = PageFactory.initElements(driver, RegisterAndLoginPageObjects.class);
     }
     @After
-    public void tearDown(){
-        driver.close();
-        driver.quit();
+    public void closeBrowser(){
+        tearDown();
     }
 }

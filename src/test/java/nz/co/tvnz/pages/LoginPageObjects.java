@@ -5,17 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class RegisterAndLoginPageObjects {
-       /*
-    Registration page Objects
-     */
-
-
-    /*
-    Login Page Objects
-     */
+public class LoginPageObjects {
     @FindBy(how = How.LINK_TEXT, using = "Login")
-    private WebElement loginLink;
+    public WebElement loginLink;
     public void loginClick(){
         loginLink.click();
     }
@@ -36,10 +28,7 @@ public class RegisterAndLoginPageObjects {
     public void mainProfileClick(){
         mainProfileIcon.click();
     }
+
     @FindBy(how = How.XPATH, using = "//span[@class='User-current-profile-name']")
-    private WebElement currentProfileNameOnHome;
-    public void currentProfileNameDisplayed(){
-        Assertions.assertTrue(currentProfileNameOnHome.isDisplayed());
-        System.out.println("Login successful....");
-    }
+    public WebElement currentProfileNameOnHome;
 }

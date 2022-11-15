@@ -1,4 +1,4 @@
-Feature: user should be able to login into tvnz application
+Feature: User login into tvnz application
   @abc
   Scenario: login to tvnz application
     Given I navigate to login page
