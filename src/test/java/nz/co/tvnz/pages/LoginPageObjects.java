@@ -1,11 +1,12 @@
 package nz.co.tvnz.pages;
 
+import nz.co.tvnz.libraries.DriverFactory;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class LoginPageObjects {
+public class LoginPageObjects extends DriverFactory {
     @FindBy(how = How.LINK_TEXT, using = "Login")
     public WebElement loginLink;
     public void loginClick(){
@@ -23,6 +24,7 @@ public class LoginPageObjects {
     @FindBy(how = How.XPATH, using = "(//div[@class='profile-avatar__image-container'])[1]")
     private WebElement mainProfileIcon;
     public void mainProfileDisplayed(){
+        waitForElement();
         Assertions.assertTrue(mainProfileIcon.isDisplayed());
     }
     public void mainProfileClick(){

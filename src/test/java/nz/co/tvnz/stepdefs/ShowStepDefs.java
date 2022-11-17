@@ -7,26 +7,16 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.interactions.Actions;
 
 public class ShowStepDefs extends DriverFactory {
-//    @Given("User login to tvnz application")
-//    public void UserLoginToTVNZApplication(){
-//        if(loginPageObjects.loginLink.isDisplayed()){
-//            loginPageObjects.loginClick();
-//            loginPageObjects.email.sendKeys("k10@grr.la");
-//            loginPageObjects.password.sendKeys("11111111");
-//            loginPageObjects.submitButtonClick();
-//            loginPageObjects.mainProfileClick();
-//            if(showPageObjects.overlay.isDisplayed()) {
-//                Actions builder = new Actions(getDriver());
-//                builder.moveToElement(showPageObjects.overlay).build().perform();
-//                showPageObjects.overlayButtonClick();
-//            }
-//        }
-//
+
+//    @Given("I click on a show {string}")
+//    public void iClickOnAShowTile(String showName) {
+//        showPageObjects.showClick(showName);
 //    }
 
-    @Given("I click on a show {string}")
-    public void iClickOnAShowTile(String showName) {
-        showPageObjects.showClick(showName);
+
+    @Given("I click on a show tile")
+    public void iClickOnAShowTile() {
+        showPageObjects.topPickFirstShowTileClick();
     }
 
     @Then("I can see show page loading")
@@ -47,4 +37,5 @@ public class ShowStepDefs extends DriverFactory {
         Assertions.assertTrue(showPageObjects.playerPauseButton.isDisplayed());
         System.out.println("Video playback successful....");
     }
+
 }

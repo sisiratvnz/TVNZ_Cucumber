@@ -8,7 +8,8 @@ Feature: Show Pages of TVNZ+
     And username should display on home page
   @def
   Scenario: Load a show page and play an episode
-   Given I click on a show "FBOY Island NZ"
+#   Given I click on a show "FBOY Island NZ"
+    Given I click on a show tile
     Then I can see show page loading
     When I click on play episode Smart Watch button
     Then I can see episode playing

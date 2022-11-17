@@ -2,7 +2,6 @@ package nz.co.tvnz.pages;
 
 import nz.co.tvnz.libraries.DriverFactory;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -10,6 +9,13 @@ import org.openqa.selenium.support.How;
 public class ShowPageObjects extends DriverFactory{
 //    @FindBy(how = How.ID, using = "Bel-Air")
 //    public WebElement show;
+    @FindBy(how = How.XPATH, using = "(//div[contains(@class,'QuickInfo-overview')])[1]")
+    private WebElement topPickFirstShowTile;
+    public void topPickFirstShowTileClick(){
+        moveToElement(topPickFirstShowTile);
+        waitForElementToClick(topPickFirstShowTile);
+        topPickFirstShowTile.click();
+    }
     public void showClick(String showName){
         WebElement show = getDriver().findElement(By.id(showName));
         moveToElement(show);
