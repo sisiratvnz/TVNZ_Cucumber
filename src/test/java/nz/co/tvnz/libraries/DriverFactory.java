@@ -1,11 +1,9 @@
 package nz.co.tvnz.libraries;
 
-import nz.co.tvnz.pages.LoginPageObjects;
-import nz.co.tvnz.pages.RegistrationPageObjects;
-import nz.co.tvnz.pages.ShowPageObjects;
+import nz.co.tvnz.pages.*;
+import nz.co.tvnz.stepdefs.Hooks;
 import nz.co.tvnz.stepdefs.ShowStepDefs;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,8 +22,18 @@ public class DriverFactory {
     private static WebDriver driver;
     static protected LoginPageObjects loginPageObjects;
     static protected RegistrationPageObjects registrationPageObjects;
+    static protected HomePageObjects homePageObjects;
     static protected ShowPageObjects showPageObjects;
 
+    private ScenarioContext scenarioContext;
+
+    public ScenarioContext getScenarioContext(){
+        return scenarioContext;
+    }
+
+    public DriverFactory(TestContext testContext) {
+        this.scenarioContext = testContext.getScenarioContext();
+    }
 
     public static WebDriver getDriver() {
         return driver;
@@ -53,6 +61,7 @@ public class DriverFactory {
     private void initializePages(){
         loginPageObjects = PageFactory.initElements(getDriver(), LoginPageObjects.class);
         registrationPageObjects = PageFactory.initElements(getDriver(), RegistrationPageObjects.class);
+        homePageObjects = PageFactory.initElements(getDriver(), HomePageObjects.class);
         showPageObjects = PageFactory.initElements(getDriver(), ShowPageObjects.class);
     }
 
@@ -65,18 +74,12 @@ public class DriverFactory {
         driver.quit();
     }
 
-    public static void waitForElement(){
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
-
-    public static void waitForElementToClick(WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public void moveToElement(WebElement element){
-        Actions builder = new Actions(driver);
-        builder.moveToElement(element).build().perform();
-    }
-
+//    protected static void getScreenShot(){
+//        try {
+//            byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+//            Hooks.myScenario.attach(screenshot,"image/png",Hooks.myScenario.getName());
+//        }catch (WebDriverException DontSupportScreenShot){
+//            System.err.println(DontSupportScreenShot.getMessage());
+//        }
+//    }
 }

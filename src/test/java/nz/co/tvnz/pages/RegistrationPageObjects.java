@@ -1,12 +1,13 @@
 package nz.co.tvnz.pages;
 
-import nz.co.tvnz.libraries.DriverFactory;
+import nz.co.tvnz.libraries.TestContext;
+import nz.co.tvnz.utilities.HelperUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class RegistrationPageObjects extends DriverFactory{
+public class RegistrationPageObjects{
 
     //Registration
     @FindBy(how = How.ID, using = "email")
@@ -16,6 +17,7 @@ public class RegistrationPageObjects extends DriverFactory{
 
     @FindBy(how = How.XPATH, using = "//span[text()='Sign up now']")
     private WebElement signUpNowLink;
+
     public void setSignUpNowClick(){
         signUpNowLink.click();
     }
@@ -31,9 +33,9 @@ public class RegistrationPageObjects extends DriverFactory{
         yearOfBirthListBox.click();
     }
 
-    public void setYearOfBirth(String yearOfBirth){
-        getDriver().findElement(By.xpath("//div[.='" + yearOfBirth+ "']")).click();
-    }
+//    public void setYearOfBirth(String yearOfBirth){
+//        getDriver().findElement(By.xpath("//div[.='" + yearOfBirth+ "']")).click();
+//    }
 
     @FindBy(how = How.XPATH, using = "//div[@name='gender']")
     private WebElement gender;
@@ -41,10 +43,10 @@ public class RegistrationPageObjects extends DriverFactory{
         gender.click();
     }
 
-    public void setGender(String rGender){
-        waitForElement();
-        getDriver().findElement(By.xpath("//div[@id='gender']/div[.='" + rGender+ "']")).click();
-    }
+//    public void setGender(String rGender){
+//        waitForPageLoad();
+//        getDriver().findElement(By.xpath("//div[@id='gender']/div[.='" + rGender+ "']")).click();
+//    }
 
     @FindBy(how = How.XPATH, using = "//label[@for='houseRules']//span")
     private WebElement houseRules;

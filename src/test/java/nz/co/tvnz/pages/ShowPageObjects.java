@@ -1,27 +1,28 @@
 package nz.co.tvnz.pages;
 
 import nz.co.tvnz.libraries.DriverFactory;
+import nz.co.tvnz.utilities.HelperUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class ShowPageObjects extends DriverFactory{
+public class ShowPageObjects {
 //    @FindBy(how = How.ID, using = "Bel-Air")
 //    public WebElement show;
     @FindBy(how = How.XPATH, using = "(//div[contains(@class,'QuickInfo-overview')])[1]")
     private WebElement topPickFirstShowTile;
     public void topPickFirstShowTileClick(){
-        moveToElement(topPickFirstShowTile);
-        waitForElementToClick(topPickFirstShowTile);
+//        moveToElement(topPickFirstShowTile);
+//        waitForElementToClick(topPickFirstShowTile);
         topPickFirstShowTile.click();
     }
-    public void showClick(String showName){
-        WebElement show = getDriver().findElement(By.id(showName));
-        moveToElement(show);
-        waitForElementToClick(show);
-        show.click();
-    }
+//    public void showClick(String showName){
+//        WebElement show = getDriver().findElement(By.id(showName));
+//        moveToElement(show);
+//        waitForElementToClick(show);
+//        show.click();
+//    }
 
     @FindBy(how = How.XPATH, using = "//div[@role='dialog']")
     public WebElement overlay;
@@ -33,17 +34,10 @@ public class ShowPageObjects extends DriverFactory{
     }
 
     @FindBy(how = How.XPATH, using = "//a[normalize-space()='Episodes']")
-    private WebElement episodeTab;
-    public void episodeTabClick(){
-        waitForElementToClick(episodeTab);
-        episodeTab.click();
-    }
+    public WebElement episodeTab;
+
     @FindBy(how = How.XPATH, using = "//a[@class='Button--scod Button Button--primary ember-view']")
-    private WebElement playVideoSmartWatchButton;
-    public void playVideoSmartWatchButtonClick(){
-        waitForElementToClick(playVideoSmartWatchButton);
-        playVideoSmartWatchButton.click();
-    }
+    public WebElement playVideoSmartWatchButton;
 
     @FindBy(how = How.XPATH, using = "//button[@title='Pause']")
     public WebElement playerPauseButton;

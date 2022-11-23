@@ -4,17 +4,18 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import nz.co.tvnz.configs.GlobalPropertyConfig;
-import nz.co.tvnz.libraries.DriverFactory;
+import nz.co.tvnz.libraries.TestContext;
+import nz.co.tvnz.pages.ElementMethods;
+import nz.co.tvnz.utilities.HelperUtility;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+public class LoginStepDefs extends HelperUtility {
+    //ElementMethods elementMethods;
 
-public class LoginStepDefs extends DriverFactory {
+    public LoginStepDefs(TestContext testContext) {
+        super(testContext);
+        //elementMethods = new ElementMethods(testContext);
+    }
 
     @Given("I navigate to login page")
     public void iNavigateToLoginPage() {
@@ -25,19 +26,18 @@ public class LoginStepDefs extends DriverFactory {
 
     @When("I enter user name {string}")
     public void iEnterUserName(String email) {
-        //driver.findElement(By.id("email")).sendKeys(email);
+        System.out.println("email"+ getScenarioContext().getScenarioContext("email"));
         loginPageObjects.email.sendKeys(email);
     }
 
     @And("I enter password {string}")
     public void iEnterPassword(String password) {
-        //driver.findElement(By.id("password")).sendKeys(password);
+        System.out.println("password"+getScenarioContext().getScenarioContext("password"));
         loginPageObjects.password.sendKeys(password);
     }
 
     @And("I click submit button")
     public void iClickSubmitButton() {
-        //driver.findElement(By.xpath("//span[.='Login']/..")).click();
         loginPageObjects.submitButtonClick();
     }
 
@@ -50,9 +50,11 @@ public class LoginStepDefs extends DriverFactory {
             moveToElement(showPageObjects.overlay);
             showPageObjects.overlayButtonClick();
         }
+        waitForPageLoad();
         String ActualTitle = getDriver().getTitle();
         //System.out.println(ActualTitle);
         String expectedTitle = "Watch Shows, Movies & Live TV | Stream On | TVNZ+";
+        waitForPageLoad();
         Assertions.assertEquals(expectedTitle,ActualTitle);
     }
 

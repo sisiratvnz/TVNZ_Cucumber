@@ -4,15 +4,26 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import nz.co.tvnz.libraries.DriverFactory;
+import nz.co.tvnz.libraries.ScenarioContext;
+import nz.co.tvnz.libraries.TestContext;
+import nz.co.tvnz.pages.ElementMethods;
+import nz.co.tvnz.utilities.HelperUtility;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class RegisterStepDefs extends DriverFactory {
-    static String email = null;
-    static String password = null;
+public class RegisterStepDefs extends HelperUtility {
+    static String registerEmail = null;
+    static String registerPassword = null;
+
+    ElementMethods elementMethods;
+
+    public RegisterStepDefs(TestContext testContext) {
+        super(testContext);
+        elementMethods = new ElementMethods(testContext);
+    }
 
     //Generate email address randomly
     public String randomAlphabeticString(int stringLength){
@@ -41,16 +52,19 @@ public class RegisterStepDefs extends DriverFactory {
 
     @And("I fill registration details")
     public void iFillRegistrationDetails() {
-        email = randomAlphabeticString(2)+"@grr.la";
-        password = randomAlphabeticString(8);
-        registrationPageObjects.email.sendKeys(email);
-        registrationPageObjects.password.sendKeys(password);
+        registerEmail = randomAlphabeticString(2)+"@grr.la";
+        registerPassword = randomAlphabeticString(8);
+        registrationPageObjects.email.sendKeys(registerEmail);
+        registrationPageObjects.password.sendKeys(registerPassword);
         registrationPageObjects.firstName.sendKeys(randomAlphabeticString(3));
         registrationPageObjects.lastName.sendKeys(randomAlphabeticString(3));
         registrationPageObjects.yearOfBirthClick();
-        registrationPageObjects.setYearOfBirth(generateBirthYear(1923,2009));
+        elementMethods.setYearOfBirth(generateBirthYear(1923,2009));
         registrationPageObjects.genderClick();
-        registrationPageObjects.setGender(randomGender());
+        elementMethods.setGender(randomGender());
+
+        getScenarioContext().setScenarioContext("email",registerEmail);
+        getScenarioContext().setScenarioContext("password",registerPassword);
     }
 
     @And("I select House Rules check and Email Me about check boxes")

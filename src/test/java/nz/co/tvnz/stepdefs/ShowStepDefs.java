@@ -2,11 +2,14 @@ package nz.co.tvnz.stepdefs;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import nz.co.tvnz.libraries.DriverFactory;
+import nz.co.tvnz.libraries.TestContext;
+import nz.co.tvnz.utilities.HelperUtility;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.interactions.Actions;
 
-public class ShowStepDefs extends DriverFactory {
+public class ShowStepDefs extends HelperUtility {
+    public ShowStepDefs(TestContext testContext) {
+        super(testContext);
+    }
 
 //    @Given("I click on a show {string}")
 //    public void iClickOnAShowTile(String showName) {
@@ -22,18 +25,20 @@ public class ShowStepDefs extends DriverFactory {
     @Then("I can see show page loading")
     public void iCanSeeShowPageLoading() {
         Assertions.assertTrue(showPageObjects.showHeroImage.isDisplayed());
-        showPageObjects.episodeTabClick();
+        waitForElementToClick(showPageObjects.episodeTab);
+        showPageObjects.episodeTab.click();
     }
 
     @When("I click on play episode Smart Watch button")
     public void iClickOnPlayEpisodeSmartWatchButton() {
-        showPageObjects.playVideoSmartWatchButtonClick();
+        waitForElementToClick(showPageObjects.playVideoSmartWatchButton);
+        showPageObjects.playVideoSmartWatchButton.click();
     }
 
     @Then("I can see episode playing")
     public void iCanSeeEpisodePlaying() {
         moveToElement(showPageObjects.playerPauseButton);
-        waitForElement();
+        waitForPageLoad();
         Assertions.assertTrue(showPageObjects.playerPauseButton.isDisplayed());
         System.out.println("Video playback successful....");
     }

@@ -1,6 +1,6 @@
 Feature: Register new users into TVNZ+
 
-  @abcd
+  @abc
   Scenario: Register new user
     Given I navigate to login page
     When I click on Sign up now

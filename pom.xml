@@ -42,6 +42,15 @@
             <artifactId>cucumber-java</artifactId>
             <version>7.5.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>7.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -101,7 +110,7 @@
             </plugin>
             <plugin>
                 <groupId>net.masterthought</groupId>
-                <artifactId>cucumber-reporting</artifactId>
+                <artifactId>maven-cucumber-reporting</artifactId>
                 <version>5.7.0</version>
                 <executions>
                     <execution>
@@ -113,7 +122,10 @@
                         <configuration>
                             <projectName>TVNZ_Cucumber</projectName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
-                            <jsonFiles>${project.build.directory}</jsonFiles>
+                            <inputDirectory>${project.build.directory}</inputDirectory>
+                            <jsonFiles>
+                                <param>**/*.json</param>
+                            </jsonFiles>
                         </configuration>
                     </execution>
                 </executions>

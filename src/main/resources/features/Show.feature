@@ -6,7 +6,7 @@ Feature: Show Pages of TVNZ+
     And I click submit button
     Then User should be login to tvnz app
     And username should display on home page
-  @def
+  @ghi
   Scenario: Load a show page and play an episode
 #   Given I click on a show "FBOY Island NZ"
     Given I click on a show tile

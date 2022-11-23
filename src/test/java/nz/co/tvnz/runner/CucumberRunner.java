@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "nz.co.tvnz",
+        glue = "nz.co.tvnz.stepdefs",
         plugin = {"json:target/report.json"},
         publish = true,
-        tags = "@def"
+        tags = "@abc or @def or @ghi or @jkl or @xyz"
 )
 public class CucumberRunner {
 
