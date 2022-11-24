@@ -1,5 +1,6 @@
 package nz.co.tvnz.stepdefs;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -7,10 +8,20 @@ import io.cucumber.java.en.When;
 import nz.co.tvnz.libraries.TestContext;
 import nz.co.tvnz.pages.ElementMethods;
 import nz.co.tvnz.utilities.HelperUtility;
+import org.apache.logging.log4j.LogManager;
+
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
+
+
+import java.util.List;
+
+
+
 
 public class LoginStepDefs extends HelperUtility {
     //ElementMethods elementMethods;
+    private static final Logger logger = LogManager.getLogger(LoginStepDefs.class);
 
     public LoginStepDefs(TestContext testContext) {
         super(testContext);
@@ -46,21 +57,29 @@ public class LoginStepDefs extends HelperUtility {
         loginPageObjects.mainProfileDisplayed();
         loginPageObjects.mainProfileClick();
         Thread.sleep(2000);
-        if(showPageObjects.overlay.isDisplayed()) {
-            moveToElement(showPageObjects.overlay);
-            showPageObjects.overlayButtonClick();
-        }
+//        if(showPageObjects.overlay.isDisplayed()) {
+//            moveToElement(showPageObjects.overlay);
+//            showPageObjects.overlayButtonClick();
+//        }
         waitForPageLoad();
         String ActualTitle = getDriver().getTitle();
         //System.out.println(ActualTitle);
-        String expectedTitle = "Watch Shows, Movies & Live TV | Stream On | TVNZ+";
-        waitForPageLoad();
-        Assertions.assertEquals(expectedTitle,ActualTitle);
+        //String expectedTitle = "Watch Shows, Movies & Live TV | Stream On | TVNZ+";
+        //waitForPageLoad();
+        //Assertions.assertEquals(expectedTitle,ActualTitle);
     }
 
     @And("username should display on home page")
-    public void userNameShouldDisplayOnHomePage() {
+    public void userNameShouldDisplayOnHomePage(DataTable dataTable) {
+        List<List<String>> tableValues = dataTable.asLists();
+        for (List<String> abc : tableValues ) {
+            for (String ba : abc) {
+                System.out.println(ba);
+            }
+        }
         Assertions.assertTrue(loginPageObjects.currentProfileNameOnHome.isDisplayed());
         System.out.println("Login successful....");
+        logger.debug("test log message");
+        logger.debug(loginPageObjects.currentProfileNameOnHome.getText());
     }
 }

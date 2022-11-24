@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         glue = "nz.co.tvnz.stepdefs",
         plugin = {"json:target/report.json"},
         publish = true,
-        tags = "@abc or @def or @ghi or @jkl or @xyz"
+        tags = " @registration or @login or @ghi or @jkl or @xyz"
 )
 public class CucumberRunner {
 

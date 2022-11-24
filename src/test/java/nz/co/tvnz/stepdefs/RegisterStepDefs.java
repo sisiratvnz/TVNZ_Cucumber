@@ -52,7 +52,7 @@ public class RegisterStepDefs extends HelperUtility {
 
     @And("I fill registration details")
     public void iFillRegistrationDetails() {
-        registerEmail = randomAlphabeticString(2)+"@grr.la";
+        registerEmail = randomAlphabeticString(3)+"@grr.la";
         registerPassword = randomAlphabeticString(8);
         registrationPageObjects.email.sendKeys(registerEmail);
         registrationPageObjects.password.sendKeys(registerPassword);
