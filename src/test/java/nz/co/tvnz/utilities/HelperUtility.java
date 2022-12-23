@@ -1,18 +1,28 @@
 package nz.co.tvnz.utilities;
 
+import nz.co.tvnz.configs.GlobalPropertyConfig;
+import nz.co.tvnz.dbconnection.ConnectionManager;
 import nz.co.tvnz.libraries.DriverFactory;
 import nz.co.tvnz.libraries.TestContext;
 import nz.co.tvnz.stepdefs.Hooks;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class HelperUtility extends DriverFactory {
 
+    static Logger logger = LogManager.getLogger(HelperUtility.class);
     public HelperUtility(TestContext testContext) {
         super(testContext);
     }
@@ -88,5 +98,64 @@ public class HelperUtility extends DriverFactory {
             flag = false;
         }
         return flag;
+    }
+
+    public Connection connection;
+    public Connection setConnection(){
+        switch (GlobalPropertyConfig.getGlobalProperties().getProperty("database")){
+            case "postgresql":
+                String userName = GlobalPropertyConfig.getGlobalProperties().getProperty("dbuser");
+                String password = GlobalPropertyConfig.getGlobalProperties().getProperty("dbpass");
+                String url = GlobalPropertyConfig.getGlobalProperties().getProperty("dburl");
+                try {
+                    connection = DriverManager.getConnection(url, userName, password);
+                    if (connection != null) {
+                        logger.debug("Connected to the database!");
+                    } else {
+                        logger.debug("Failed to make connection...");
+                    }
+                }
+                catch (SQLException e){
+                    logger.debug(e.getMessage());
+                }
+                catch (Exception e){
+                    logger.debug(e.getStackTrace());
+                }
+                break;
+            case "mysql":
+                String mUser = GlobalPropertyConfig.getGlobalProperties().getProperty("mdbuser");
+                String mPassword = GlobalPropertyConfig.getGlobalProperties().getProperty("mdbpass");
+                String mUrl = GlobalPropertyConfig.getGlobalProperties().getProperty("mdburl");
+                try {
+                    connection = DriverManager.getConnection(mUrl, mUser, mPassword);
+                    if (connection != null) {
+                        logger.debug("Connected to the database!");
+                    } else {
+                        logger.debug("Failed to make connection...");
+                    }
+                }
+                catch (SQLException e){
+                    logger.debug(e.getMessage());
+                }
+                catch (Exception e){
+                    logger.debug(e.getStackTrace());
+                }
+            break;
+            default:
+                fail("Unknown database");
+        }
+        return connection;
+    }
+
+    public void closeConnection() throws SQLException{
+        try {
+            connection.close();
+        }
+        catch (SQLException e){
+            logger.debug(e.getMessage());
+        }
+        catch (Exception e){
+            logger.debug(e.getStackTrace());
+        }
     }
 }

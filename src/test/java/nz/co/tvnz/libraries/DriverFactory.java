@@ -25,14 +25,16 @@ public class DriverFactory {
     static protected HomePageObjects homePageObjects;
     static protected ShowPageObjects showPageObjects;
 
-    private ScenarioContext scenarioContext;
+    private static ScenarioContext scenarioContext;
 
     public ScenarioContext getScenarioContext(){
         return scenarioContext;
     }
 
     public DriverFactory(TestContext testContext) {
-        this.scenarioContext = testContext.getScenarioContext();
+        if(scenarioContext==null) {
+            scenarioContext = testContext.getScenarioContext();
+        }
     }
 
     public static WebDriver getDriver() {
@@ -73,13 +75,4 @@ public class DriverFactory {
         driver.close();
         driver.quit();
     }
-
-//    protected static void getScreenShot(){
-//        try {
-//            byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-//            Hooks.myScenario.attach(screenshot,"image/png",Hooks.myScenario.getName());
-//        }catch (WebDriverException DontSupportScreenShot){
-//            System.err.println(DontSupportScreenShot.getMessage());
-//        }
-//    }
 }

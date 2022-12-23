@@ -43,7 +43,11 @@ public class LoginStepDefs extends HelperUtility {
 
     @And("I enter password {string}")
     public void iEnterPassword(String password) {
-        System.out.println("password"+getScenarioContext().getScenarioContext("password"));
+        String password1 = getScenarioContext().getScenarioContext("password") == null?password:getScenarioContext().getScenarioContext("password").toString();
+        //System.out.println("password"+getScenarioContext().getScenarioContext("password"));
+        /*
+        have to pass the above password1 in order to get the login with same username and password
+         */
         loginPageObjects.password.sendKeys(password);
     }
 

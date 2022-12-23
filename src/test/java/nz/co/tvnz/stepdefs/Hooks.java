@@ -21,6 +21,7 @@ public class Hooks extends HelperUtility {
 
     @Before
     public void driverSetup(Scenario scenario){
+        System.out.println(System.getProperty("browser"));
         setUp(System.getProperty("browser")==null? GlobalPropertyConfig.getGlobalProperties().getProperty("1"):System.getProperty("browser"));
         getDriver().get(GlobalPropertyConfig.getURL()==null?"https://www.tvnz.co.nz":GlobalPropertyConfig.getURL());
         System.out.println("Site loading successful....");
